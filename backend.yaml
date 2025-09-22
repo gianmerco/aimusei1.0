@@ -14,7 +14,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
-  namespace: aimusei # Tutto nel namespace 'default' per ora
+  namespace: aimusei
 spec:
   replicas: 1
   selector:
@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: fe
-        image: gianmerco/fe:prova # L'ultima immagine funzionante
+        image: gianmerco/fe:prova
         ports:
         - containerPort: 80
 
@@ -40,16 +40,13 @@ metadata:
   name: frontend-service
   namespace: aimusei
 spec:
-  type: ClusterIP # L'Ingress lo espone, non serve NodePort
+  type: ClusterIP
   selector:
     app: frontend
   ports:
   - port: 80
     targetPort: 80
-
 ---
-
-# --- DEPLOYMENT BACKEND ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -93,8 +90,6 @@ spec:
           name: datasources-config
 
 ---
-
-# --- CONFIGMAPS BACKEND ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -115,8 +110,6 @@ data:
     mongo.database=aimusei
 
 ---
-
-# --- SERVICE BACKEND ---
 apiVersion: v1
 kind: Service
 metadata:
@@ -131,8 +124,6 @@ spec:
     targetPort: 8090
 
 ---
-
-# --- DEPLOYMENT MONGODB ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -161,14 +152,12 @@ spec:
       volumes:
       - name: mongo-init-script-volume
         configMap:
-          name: mongo-init-script # Ora questo ConfigMap esiste
+          name: mongo-init-script
           defaultMode: 0755
       - name: mongo-init-data-volume
         configMap:
           name: mongo-init-data
 ---
-
-# --- SERVICE MONGODB ---
 apiVersion: v1
 kind: Service
 metadata:
@@ -183,12 +172,10 @@ spec:
     targetPort: 27017
 
 ---
-
-# --- L'INGRESSO. SEMPLICE. PULITO. NEL NAMESPACE 'DEFAULT'. ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: aimusei-ingress
+  name: aimusei-ingress-backend
   namespace: aimusei
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -198,7 +185,6 @@ spec:
     - host: "aimusei.local"
       http:
         paths:
-          # 1. Regola per il Backend (più specifica)
           - path: /api(/|$)(.*)
             pathType: Prefix
             backend:
@@ -206,8 +192,19 @@ spec:
                 name: backend-service
                 port:
                   number: 8090
-          # 2. Regola per il Frontend (catch-all)
-          - path: /(.*)
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aimusei-ingress
+  namespace: aimusei
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "aimusei.local"
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
@@ -215,14 +212,12 @@ spec:
                 port:
                   number: 80
 ---
-# --- CONFIGMAP PER I DATI JSON ---
-# Contiene il file ai_musei.opera.json che verrà importato da MongoDB al primo avvio.
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mongo-init-data
+  namespace: aimusei
 data:
-  # La chiave è il nome del file che verrà creato nel container.
   ai_musei.opera.json: |
     [{
       "_id": {
@@ -391,6 +386,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mongo-init-script
+  namespace: aimusei
 data:
   # La chiave è il nome del file script.
   init-mongo.sh: |
