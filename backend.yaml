@@ -172,13 +172,14 @@ spec:
     targetPort: 27017
 
 ---
+# --- INGRESS N.1: SOLO PER IL BACKEND (con rewrite) ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: aimusei-ingress
+  name: aimusei-ingress-backend
   namespace: aimusei
   annotations:
-    # Applichiamo la riscrittura SOLO al backend
+    # Questa annotazione si applica SOLO a questo Ingress
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
@@ -186,18 +187,28 @@ spec:
     - host: "aimusei.local"
       http:
         paths:
-          # --- REGOLA PER IL BACKEND ---
-          # Molto specifica, usa un'espressione regolare per catturare
-          - path: /api(/|$)(.*)
-            pathType: Prefix # In realtà qui stiamo usando una regex
+          - path: /api(/|$)(.*) # Usiamo la regex più robusta
+            pathType: Prefix
             backend:
               service:
                 name: backend-service
                 port:
                   number: 8090
 
-          # --- REGOLA PER IL FRONTEND ---
-          # Semplice, senza regex. Cattura tutto ciò che non ha matchato prima.
+---
+
+# --- INGRESS N.2: SOLO PER IL FRONTEND (senza rewrite) ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aimusei-ingress-frontend
+  namespace: aimusei
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "aimusei.local"
+      http:
+        paths:
           - path: /
             pathType: Prefix
             backend:
