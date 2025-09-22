@@ -137,6 +137,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo-deployment
+  namespace: aimusei
 spec:
   replicas: 1
   selector:
