@@ -1,0 +1,157 @@
+/* You can add global styles to this file, and also import other style files */
+html * {
+    font-family: "Titillium Web", "Segoe UI";
+}
+
+:root {
+    --custom-orange: #{#fdda84};
+    --custom-red: #{#a15d40};
+    --custom-red-rgb: 161,93,64;
+    --custom-light-red: #{#b27a5f};
+    --custom-back: #{#c4b99b};
+    --custom-dark-orange: #{#e4a811};
+    // --custom-dark-back: #{#3f2d2c};
+    --custom-dark-back: #{#036};
+    --custom-blu-back: #{#004080};
+}
+
+body{
+    font-family: 'Montserrat' !important;
+    background-color: var(--custom-dark-back) !important;
+}
+
+.pos-relative{
+    position: relative;
+}
+
+.pos-absolute{
+    position: absolute;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.form-control.is-invalid{
+    background: none !important;
+    padding-right: inherit !important;
+    color: #cc334d !important;
+    background-color: white !important;
+    border-color: #cc334d !important;
+}
+
+.disabled{
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+button{
+    border-radius: 5px !important;
+}
+
+.flex-end{
+    justify-content: flex-end;
+}
+.flex-evenly{
+    justify-content: space-evenly;
+}
+
+
+.form-select{
+    border: 1px solid #a3a3a3 !important;
+    text-overflow: ellipsis;
+    padding-right: 2.25rem !important;
+}
+
+button.form-select{
+    border-width: 1px !important;
+    border-radius: 0 !important;
+    text-align: start;
+    div{
+        text-overflow: ellipsis;
+        white-space: nowrap !important;
+        overflow: hidden;
+    }
+}
+button.select-item{
+    border: none !important;
+    border-radius: 0 !important;
+    text-align: start;
+    background: none !important;
+    padding: .75rem;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+    font-size: 1rem;
+}
+button.select-item:hover{
+    background-color: rgba(var(--bs-primary-rgb)) !important;
+    color: white !important;
+}
+
+button.form-select.form-select-header{
+    background-color: transparent !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 8 6 6 6-6'/%3e%3c/svg%3e") !important;
+    color: white !important;
+    border: none !important;
+}
+
+.dropdown-custom{
+    position: absolute;
+    top: 100%;
+    z-index: 50;
+    width: 100%;
+    transition-duration: 0s !important;
+}
+
+.dropdown-container{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 5px 25px rgba(77, 95, 109, 0.2) !important;
+    background-color: white !important;
+    width: fit-content !important;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 15rem;
+    overflow-y: auto;
+}
+
+.body-back-2{
+    background-color: #ecf0f5;
+}
+
+.body-back{
+    // background: url('assets/images/back.png');
+    // background-repeat: no-repeat;
+    // background-size: auto;
+    // background-position-y: bottom;
+    // background-position-x: right;
+    // background-color: var(--custom-back);
+    background-color: white;
+}
+
+// .accordion-header .accordion-button:after{
+//     content: url('assets/images/accordion-closed.png') !important;
+// }
+
+// .custom-scroll::-webkit-scrollbar {
+//     width: 0.5rem;
+//     height: 0.5rem;
+//     background-color: white;
+// }
+  
+// /* Track */
+// .custom-scroll::-webkit-scrollbar-track {
+//     box-shadow: inset 0 0 0.2rem grey; 
+//     border-radius: 0.5rem;
+// }
+
+// /* Handle */
+// .custom-scroll::-webkit-scrollbar-thumb {
+//     background: var(--custom-blu-back); 
+//     border-radius: 0.5rem;
+// }
+
+// /* Handle on hover */
+// .custom-scroll::-webkit-scrollbar-thumb:hover {
+//     background: var(--custom-dark-back); 
+// }
