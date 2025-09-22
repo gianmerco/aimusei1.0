@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import it.prismaprogetti.aimusei.service.OperaService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
+@RequestMapping("/api")
 public class BackofficeController {
 
 	@Autowired
@@ -30,7 +32,7 @@ public class BackofficeController {
 	@Autowired
 	private OperaService operaService;
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*") 
 	@PostMapping("/elaboraTestiDisabilita")
 	public ResponseEntity<Map<Disabilita, String>> elaboraTestiDisabilita(HttpServletRequest request,
 			@RequestBody ElaboraTestiDisabilitaRequest requestElaborazione)
@@ -38,13 +40,13 @@ public class BackofficeController {
 		return ResponseEntity.ok(aiMuseiService.elaboraTestiDisabilita(requestElaborazione));
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*") 
 	@GetMapping("/getOpera")
 	public ResponseEntity<?> getDescrizioneOpera(@RequestParam String tag) {
 		return ResponseEntity.ok(operaService.getOpera(tag));
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*") 
 	@PostMapping("/modificaSintesi")
 	public ResponseEntity<?> modificaSintesi(@RequestBody ModificaSintesiRequest request) {
 		operaService.modificaSintesi(request);
@@ -52,7 +54,7 @@ public class BackofficeController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*") 
 	@PostMapping("/modificaFlagSintesi")
 	public ResponseEntity<?> modificaFlagSintesi(@RequestBody ModificaFlagSintesiRequest request) {
 		operaService.modificaFlagSintesi(request);
@@ -61,7 +63,7 @@ public class BackofficeController {
 	}
 	
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*") 
 	@PostMapping("/modificaDescrizione")
 	public ResponseEntity<?> modificaDescrizione(@RequestBody ModificaSintesiRequest request) {
 		operaService.modificaSintesi(request);
