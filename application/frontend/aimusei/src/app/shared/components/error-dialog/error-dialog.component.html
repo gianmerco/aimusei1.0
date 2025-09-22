@@ -1,0 +1,8 @@
+<div *ngFor="let toast of toasts" class="alert" [ngClass]="toast.type=='SUCCESS' ? 'alert-success' : 
+(toast.type=='WARNING' ? 'alert-warning' : (toast.type=='ERROR' ? 'alert-danger' : ''))">
+    <div class="alert-heading mb-4 alert-dismissible">
+        <strong>{{toast.title}}</strong>
+        <button class="btn btn-close" (click)="toastService.closeToast(toast)"></button>
+    </div>
+    <div>{{toast.msg}}</div>
+</div>

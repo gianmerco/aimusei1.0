@@ -1,0 +1,256 @@
+<!-- container -->
+<div style="position: relative;">
+  <div id="spinner" *ngIf="sessionService.showSpinner">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div class="collapse sidebar fixed-top" id="collapseSidebar">
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-link p-0"
+      data-bs-toggle="collapse" data-bs-target="#collapseSidebar"
+      aria-expanded="true" aria-controls="collapseSidebar">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <ul class="py-3" style="list-style: none;">
+      <li class="sidebar-item">
+        <a href="/home-with-menu" aria-label="Vai a: Home"
+          class="text-decoration-none fw-bold text-uppercase text-primary px-2 nuxt-link-active">
+          HOME
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="/home-with-menu" aria-label="Vai a: Musei"
+          class="text-decoration-none fw-bold text-uppercase text-primary px-2 nuxt-link-active">
+          MUSEI
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="/home-with-menu" aria-label="Vai a: Itinerari"
+          class="text-decoration-none fw-bold text-uppercase text-primary px-2">
+          ITINERARI
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="/home-with-menu" aria-label="Vai a: Cos'è il SMN"
+          class="text-decoration-none fw-bold text-uppercase text-primary px-2">
+          COS'È IL SMN
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="/home-with-menu" aria-label="Vai alla pagina per acquistare biglietti"
+          class="text-decoration-none fw-bold text-uppercase text-primary px-2 ">
+          BIGLIETTI
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div [ngClass]="checkMenu() || checkIframe() ? '' : 'mt-4'">
+    <div class="w-100" style="background-color: var(--custom-blu-back);"
+      [ngClass]="checkMenu() ? 'primary-bg-a10 fixed-top' : 'pos-absolute'"
+      *ngIf="!checkIframe()">
+      <app-header *ngIf="!checkMenu()"></app-header>
+      <app-header-menu *ngIf="checkMenu()"></app-header-menu>
+    </div>
+    <div class="w-100" style="pointer-events: none; opacity: 0;" *ngIf="!checkIframe()">
+      <app-header *ngIf="!checkMenu()"></app-header>
+      <app-header-menu *ngIf="checkMenu()"></app-header-menu>
+    </div>
+
+    <div class="py-2 h-100" id="content" [ngClass]="checkMenu() ? 'body-back-2' : 'body-back'">
+      <router-outlet></router-outlet>
+    </div>
+
+    <footer class="it-footer" *ngIf="checkMenu()">
+      <div class="cookiebar" aria-hidden="false" aria-live="polite">
+        <p>
+          Questo sito utilizza cookie tecnici, analytics e di terze parti.
+          <br>
+          Proseguendo nella navigazione accetti l'utilizzo dei cookie.
+        </p>
+        <div class="cookiebar-buttons">
+          <a href="home-with-menu" aria-label="Privacy policy - Cookies" class="cookiebar-btn">
+            Privacy policy
+            <span class="sr-only">
+              Cookies
+            </span>
+          </a>
+          <button data-accept="cookiebar" aria-label="I accept -  the cookies" class="cookiebar-btn cookiebar-confirm">
+            Accetto
+            <span class="sr-only">
+              i cookies
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="it-footer-main">
+        <div class="container px-4 py-0">
+          <section class="pt-4 px-0">
+            <div class="row">
+              <div class="col-lg-3 col-sm-12 col-md-6">
+                <a href="http://musei.beniculturali.it/" title="Collegamento a sito esterno" target="_blank"
+                  aria-label="MIC - ministry of culture - Direzione generale Musei - Link to external site - Opens in a new window"><img
+                    src="assets/images/logo_footer.png" alt="MIC - ministry of culture" class=" img-fluid">
+                </a>
+              </div>
+              <div class="d-none d-lg-block col-6"></div>
+              <div class="d-none d-lg-block col-3 text-center my-auto">
+                <button aria-label="AREA ISTITUTI" no-prefetch="" class="btn btn-dark btn-icon btn-small">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="landmark" role="img"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                    class="icon-landmark ms-1 me-2 svg-inline--fa fa-landmark fa-w-16">
+                    <path fill="currentColor"
+                      d="M501.62 92.11L267.24 2.04a31.958 31.958 0 0 0-22.47 0L10.38 92.11A16.001 16.001 0 0 0 0 107.09V144c0 8.84 7.16 16 16 16h480c8.84 0 16-7.16 16-16v-36.91c0-6.67-4.14-12.64-10.38-14.98zM64 192v160H48c-8.84 0-16 7.16-16 16v48h448v-48c0-8.84-7.16-16-16-16h-16V192h-64v160h-96V192h-64v160h-96V192H64zm432 256H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h480c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"
+                      class=""></path>
+                  </svg>
+                  AREA ISTITUTI
+                </button>
+              </div>
+              <div class="d-block d-lg-none col-sm-12 col-md-6 mt-4 mt-md-0 text-left text-md-end"><button
+                  aria-label="AREA ISTITUTI" no-prefetch="" class="btn btn-dark btn-icon btn-small "><svg
+                    aria-hidden="true" focusable="false" data-prefix="fas" data-icon="landmark" role="img"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                    class="icon-landmark ms-1 mr-2 svg-inline--fa fa-landmark fa-w-16">
+                    <path fill="currentColor"
+                      d="M501.62 92.11L267.24 2.04a31.958 31.958 0 0 0-22.47 0L10.38 92.11A16.001 16.001 0 0 0 0 107.09V144c0 8.84 7.16 16 16 16h480c8.84 0 16-7.16 16-16v-36.91c0-6.67-4.14-12.64-10.38-14.98zM64 192v160H48c-8.84 0-16 7.16-16 16v48h448v-48c0-8.84-7.16-16-16-16h-16V192h-64v160h-96V192h-64v160h-96V192H64zm432 256H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h480c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"
+                      class=""></path>
+                  </svg>
+                  AREA ISTITUTI
+                </button></div>
+            </div>
+          </section>
+          <section class="mt-4 border-white border-top px-0 pb-4"><br> <br>
+            <div class="row justify-space-between">
+              <div class="col-md-3 d-none d-lg-block">
+                <p class="font-weight-bold">
+                  CONTATTI
+                </p>
+              </div>
+              <div class="col-md-3 d-none d-lg-block"></div>
+              <div class="col-md-3 d-none d-lg-block text-center">
+                <p class="font-weight-bold">
+                  SEGUICI SU:
+                </p>
+              </div>
+              <div class="col-md-3 d-none d-lg-block">
+                <p class="font-weight-bold text-center">
+                  SCARICA L'APP MUSEI ITALIANI
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 html-text-white">
+                <p><strong>Direzione generale Musei</strong><br>via di San Michele, 22<br>00153 - Roma</p>
+                <p>Sito web musei.beniculturali.it</p>
+              </div>
+              <div class="col-md-3 pt-md-0 p-smn html-text-white">
+                <p><strong>Helpdesk biglietti</strong><br>{{'mail: info@museiitaliani.it'}}<br>Tel: +39 06 87570182<br>Il
+                  servizio è attivo tutti i giorni dalle 9:00 alle 17:30</p>
+              </div>
+              <div class="col-md-3 pt-md-0 p-smn text-md-center">
+                <p class="font-weight-bold d-lg-none">
+                  Seguici su:
+                </p>
+                <a href="https://www.facebook.com/museitaliani/" target="_blank"
+                  aria-label="facebook - opens in a new window" class="text-white text-decoration-none">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook" role="img"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                    class="pe-2 svg-inline--fa fa-facebook fa-w-16 fs-2">
+                    <path fill="currentColor"
+                      d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"
+                      class="">
+                    </path>
+                  </svg>
+                  <span class="sr-only">
+                    Facebook - si apre in una nuova finestra
+                  </span>
+                </a>
+                <a href="https://twitter.com/museitaliani/" target="_blank" aria-label="twitter - opens in a new window"
+                  class="text-white text-decoration-none">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="x-twitter" role="img"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                    class="pe-2 svg-inline--fa fa-x-twitter fa-w-16 fs-2">
+                    <path fill="currentColor"
+                      d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"
+                      class=""></path>
+                  </svg>
+                  <span class="sr-only">
+                    Twitter - si apre in una nuova finestra
+                  </span>
+                </a>
+                <a href="https://www.instagram.com/museitaliani/" target="_blank"
+                  aria-label="instagram - opens in a new window" class="text-white text-decoration-none">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="instagram" role="img"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                    class="pe-2 svg-inline--fa fa-instagram fa-w-16 fs-2">
+                    <path fill="currentColor"
+                      d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                      class=""></path>
+                  </svg>
+                  <span class="sr-only">
+                    Instagram - si apre in una nuova finestra
+                  </span>
+                </a>
+                <p class="font-weight-bold">#museiitaliani</p>
+              </div>
+              <div class="col-md-3 pt-md-0 p-smn">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                  <p class="font-weight-bold d-lg-none">
+                    Scarica l'app musei italiani
+                  </p> <a
+                    href="https://play.google.com/store/apps/details?id=it.dgmusei.museitaliani&amp;hl=it&amp;pli=1&amp;utm_source=smn&amp;pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img
+                      alt="Available on google play"
+                      src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                      width="170px"></a> <a href="https://apps.apple.com/it/app/musei-italiani/id6450997120"><img
+                      src="assets/images/app_store.svg" alt="Available on app store" width="170px" class="mt-1"></a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="it-footer-small-prints clearfix no-print">
+        <div class="container px-4 py-0">
+          <div class="d-flex flex-column flex-lg-row text-center text-lg-left">
+            <ul
+              class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-sm-row px-0 order-lg-2 justify-content-center">
+              <li class="list-inline-item px-0 py-2 px-sm-2 py-lg-0">
+                <a href="home-with-menu" aria-label="Privacy policy" class="font-weight-bold text-uppercase">
+                  Privacy policy
+                </a>
+              </li>
+              <li class="list-inline-item px-0 py-2 px-sm-2 py-lg-0">
+                <a href="home-with-menu" aria-label="Note legali" class="font-weight-bold text-uppercase">
+                  Note legali
+                </a>
+              </li>
+              <li class="list-inline-item px-0 py-2 px-sm-2 py-lg-0">
+                <a target="_blank" href="https://form.agid.gov.it/view/c4a5a381-373a-4e07-8576-f7cd6c176c13"
+                  aria-label="Accessibility statement" class="font-weight-bold text-uppercase">
+                  Dichiarazione di accessibilità
+                </a>
+              </li>
+            </ul>
+            <div id="credits" class="col-lg-4 d-lg-flex align-items-center order-lg-1 pb-4 pt-2 py-lg-3 pl-0">
+              <p class="mb-0">
+                <small class="text-white mb-0 small font-weight-light">
+                  <span class="font-weight-bold">
+                    <span style="position: relative; font-size: 1.5em; top: 0.2em">
+                      ©
+                    </span>
+                    2025
+                  </span>
+                  , Direzione generale Musei
+                </small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<div class="error-dialog">
+  <app-error-dialog></app-error-dialog>
+</div>
