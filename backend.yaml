@@ -97,6 +97,7 @@ metadata:
   namespace: aimusei
 data:
   config.properties: |
+    spring.data.mongodb.uri=mongodb://mongo-service:27017/aimusei
     aimusei.key=keytest123123
 ---
 apiVersion: v1
