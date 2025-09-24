@@ -23,7 +23,6 @@ import it.prismaprogetti.aimusei.service.OperaService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api")
 public class BackofficeController {
 
 	@Autowired

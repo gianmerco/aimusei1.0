@@ -12,7 +12,6 @@ import it.prismaprogetti.aimusei.model.Disabilita;
 import it.prismaprogetti.aimusei.service.UserService;
 
 @RestController
-@RequestMapping("/api")
 public class UserController {
 
     @Autowired
