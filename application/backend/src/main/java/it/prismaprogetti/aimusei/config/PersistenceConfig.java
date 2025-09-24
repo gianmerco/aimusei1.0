@@ -9,8 +9,11 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Configuration
 @PropertySource("file://${DATASOURCE_PATH:/opt/ai/config}/datasources.env")
+@Slf4j
 public class PersistenceConfig extends AbstractMongoClientConfiguration  {
 
 	
@@ -25,10 +28,11 @@ public class PersistenceConfig extends AbstractMongoClientConfiguration  {
 	@Override
 	protected void configureClientSettings(MongoClientSettings.Builder builder) {
 
-		
 		ConnectionString connectionString = new ConnectionString(
 				"mongodb://" 
 						+ env.getProperty("mongo.host") + "/" + env.getProperty("mongo.database"));
+		
+		log.info("MongoDB connection string: " + connectionString);
 		builder.applyConnectionString(connectionString);
 	}
 }
