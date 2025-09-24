@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
         - name: be
-          image: aptul9/backend:1.11
+          image: aptul9/backend:1.12
           ports:
             - containerPort: 8090
           env:
