@@ -91,6 +91,7 @@ data:
     server.servlet.context-path=/api  
     spring.data.mongodb.uri=mongodb://mongo-service:27017/aimusei
     aimusei.key=keytest123123
+    logging.level.org.springframework.data.mongodb=DEBUG
 ---
 apiVersion: v1
 kind: ConfigMap
