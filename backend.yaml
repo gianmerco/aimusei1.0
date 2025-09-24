@@ -64,7 +64,7 @@ spec:
     spec:
       containers:
       - name: be
-        image: gianmerco/be:prova
+        image: aptul9/backend:1.8
         ports:
         - containerPort: 8090
         env:
@@ -97,6 +97,7 @@ metadata:
   namespace: aimusei
 data:
   config.properties: |
+    spring.data.mongodb.uri=mongodb://mongo-service:27017/aimusei
     aimusei.key=keytest123123
 ---
 apiVersion: v1
