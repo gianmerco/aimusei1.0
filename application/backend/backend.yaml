@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: fe
-          image: aptul/frontend:1.5
+          image: aptul9/frontend:1.5
           ports:
             - containerPort: 80
 
@@ -80,7 +80,6 @@ spec:
         - name: datasources-volume
           configMap:
             name: datasources-config
-
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -170,15 +169,15 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: aimusei-ingress-backend
+  name: aimusei-ingress-unified
   namespace: aimusei
-  annotations:
 spec:
   ingressClassName: nginx
   rules:
     - host: "aimusei.local"
       http:
         paths:
+          # PRIMA LA REGOLA PIÙ SPECIFICA (Backend)
           - path: /api
             pathType: Prefix
             backend:
@@ -186,19 +185,8 @@ spec:
                 name: backend-service
                 port:
                   number: 8090
----
 
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: aimusei-ingress-frontend
-  namespace: aimusei
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: "aimusei.local"
-      http:
-        paths:
+          # DOPO LA REGOLA PIÙ GENERICA (Frontend)
           - path: /
             pathType: Prefix
             backend:
