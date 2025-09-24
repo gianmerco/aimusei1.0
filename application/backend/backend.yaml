@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: fe
-          image: gianmerco/fe:prova
+          image: aptul/frontend:1.5
           ports:
             - containerPort: 80
 
