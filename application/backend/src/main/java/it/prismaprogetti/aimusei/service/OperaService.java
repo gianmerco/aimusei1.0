@@ -11,7 +11,9 @@ import it.prismaprogetti.aimusei.collection.Sintesi;
 import it.prismaprogetti.aimusei.model.ModificaFlagSintesiRequest;
 import it.prismaprogetti.aimusei.model.ModificaSintesiRequest;
 import it.prismaprogetti.aimusei.repository.OperaRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class OperaService {
 
@@ -19,7 +21,10 @@ public class OperaService {
 	private OperaRepository repository;
 
 	public Opera getOpera(String tag) {
-		return repository.findByTag(tag).orElse(null);
+		log.debug("entrata getOpera seachby: "+tag);
+		Opera op = repository.findByTag(tag).orElse(null);
+		log.debug("response getOpera seachby: "+op);
+		return op;
 	}
 
 	public void modificaSintesi(ModificaSintesiRequest request) {

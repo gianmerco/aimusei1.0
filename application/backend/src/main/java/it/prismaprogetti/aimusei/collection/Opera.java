@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Opera {
+
 	@Id
 	private String id;
 	@Field("nome")
@@ -47,5 +48,9 @@ public class Opera {
 
 //	private Sintesi sintesi_dislessia;
 //	private Sintesi sintesi_discalculia;
-
+	@Override
+	public String toString() {
+		return "Opera [id=" + id + ", nome=" + nome + ", descrizione=" + descrizione + ", version=" + version
+				+ ", hash=" + hash + ", tag=" + tag + ", lastUpdate=" + lastUpdate + ", sintesi=" + sintesi + "]";
+	}
 }
