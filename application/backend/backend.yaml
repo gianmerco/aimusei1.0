@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: fe
-          image: aptul9/frontend:1.5
+          image: harbor-adarte-coll.museiitaliani.it/adarte/aimusei_fe:1.0
           ports:
             - containerPort: 80
 
@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
         - name: be
-          image: aptul9/backend:1.13
+          image: harbor-adarte-coll.museiitaliani.it/adarte/aimusei_be:1.0
           ports:
             - containerPort: 8090
           env:
