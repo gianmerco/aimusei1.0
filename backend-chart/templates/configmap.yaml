@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.nameBase }}-backend-config
+  labels:
+    app: {{ .Values.nameBase }}-backend
+data:
+  config.properties: |-
+    server.servlet.context-path={{ .Values.config.contextPath }}
+    spring.data.mongodb.uri={{ .Values.config.mongoUri }}
+    aimusei.key={{ .Values.config.appKey }}
+    logging.level.org.springframework.data.mongodb=DEBUG
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.nameBase }}-datasources-config
+  labels:
+    app: {{ .Values.nameBase }}-backend
+data:
+  datasources.env: |-
+    mongo.host={{ .Values.config.mongoHost }}
+    mongo.database={{ .Values.config.mongoDatabase }}
+    spring.data.mongodb.uri=mongodb:///{{ .Values.config.mongoHost }}:27017/

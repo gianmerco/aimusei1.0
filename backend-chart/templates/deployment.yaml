@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.nameBase }}-be-deployment
+  labels:
+    app: {{ .Values.nameBase }}-backend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.nameBase }}-backend
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.nameBase }}-backend
+    spec:
+      containers:
+          - name: be
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            ports:
+              - name: http
+                containerPort: {{ .Values.service.port }}
+                protocol: TCP
+            env:
+              - name: SPRING_DATA_MONGODB_URI
+                value: {{ .Values.config.mongoUri | quote }}
+            command:
+              - "java"
+              - "-jar"
+              - "app.jar"
+              - "--spring.config.location=file:/app/config/config.properties"
+              - "--server.port={{ .Values.service.port }}"
+            volumeMounts:
+              - name: config-volume
+                mountPath: /app/config
+              - name: datasources-volume
+                mountPath: /opt/ai/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Values.nameBase }}-backend-config
+        - name: datasources-volume
+          configMap:
+            name: {{ .Values.nameBase }}-datasources-config

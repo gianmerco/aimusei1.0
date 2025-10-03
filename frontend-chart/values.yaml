@@ -1,3 +1,5 @@
+namespace: aimusei
+
 nameBase: "aimusei"
 names:
   deployment: aimusei-fe-deployment
@@ -24,5 +26,5 @@ ingress:
   backendPath:
     enabled: true
     # Nome del servizio del backend a cui puntare
-    serviceName: backend-service
+    serviceName: aimusei-be-service
     servicePort: 8090
