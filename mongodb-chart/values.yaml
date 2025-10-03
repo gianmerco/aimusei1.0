@@ -1,0 +1,19 @@
+namespace: aimusei
+replicaCount: 1
+
+nameOverride: "mongo"
+fullnameOverride: ""
+
+image:
+  repository: mongo
+  pullPolicy: IfNotPresent
+  tag: "5.0"
+
+service:
+  type: ClusterIP
+  port: 27017
+
+database:
+  name: aimusei
+  collection: opera
+  initDataFileName: ai_musei.opera.json
