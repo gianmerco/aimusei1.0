@@ -1,0 +1,28 @@
+nameBase: "aimusei"
+names:
+  deployment: aimusei-fe-deployment
+  service: aimusei-fe-service
+  ingress: aimusei-ingress
+
+replicaCount: 1
+
+image:
+  repository: aptul9/frontend
+  tag: "1.5"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  host: "aimusei.local"
+
+  # Configurazione per il path del backend, che è gestito da questo Ingress
+  backendPath:
+    enabled: true
+    # Nome del servizio del backend a cui puntare
+    serviceName: backend-service
+    servicePort: 8090
