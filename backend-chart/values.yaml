@@ -13,7 +13,6 @@ service:
   port: 8090
 
 config:
-  # config.properties
   contextPath: /api
   mongoUri: "mongodb://mongo-service:27017/aimusei?connectTimeoutMS=30000&socketTimeoutMS=30000"
   appKey: "keytest123123"

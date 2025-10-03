@@ -7,7 +7,6 @@ metadata:
   labels:
     {{- include "mongodb-chart.labels" . | nindent 4 }}
 spec:
-  # Il numero di repliche è preso da values.yaml
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
@@ -19,27 +18,22 @@ spec:
     spec:
       containers:
         - name: mongo
-          # L'immagine e il tag sono presi da values.yaml
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: mongo
-              containerPort: 27017 # Porta standard di MongoDB
+              containerPort: 27017
               protocol: TCP
-          # Qui montiamo i volumi creati dai nostri ConfigMap
           volumeMounts:
             - name: mongo-init-script-volume
-              mountPath: /docker-entrypoint-initdb.d/ # La directory dove l'immagine mongo cerca gli script
+              mountPath: /docker-entrypoint-initdb.d/
             - name: mongo-init-data-volume
-              mountPath: /data/init/ # Una directory dove mettiamo i dati da importare
-      # Qui definiamo i volumi, associandoli ai ConfigMap
+              mountPath: /data/init/
       volumes:
         - name: mongo-init-script-volume
           configMap:
-            # Il nome del ConfigMap dello script viene generato dinamicamente
             name: {{ include "mongodb-chart.fullname" . }}-init-script
-            defaultMode: 0755 # Permessi di esecuzione per lo script
+            defaultMode: 0755
         - name: mongo-init-data-volume
           configMap:
-            # Il nome del ConfigMap dei dati viene generato dinamicamente
             name: {{ include "mongodb-chart.fullname" . }}-init-data

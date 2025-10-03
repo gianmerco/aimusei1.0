@@ -1,5 +1,3 @@
-# templates/service.yaml
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -10,10 +8,8 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      # Correzione: il targetPort deve puntare al NOME della porta nel deployment.
       targetPort: mongo
       protocol: TCP
-      # Correzione: anche il nome della porta del servizio deve essere corretto.
       name: mongo
   selector:
     {{- include "mongodb-chart.selectorLabels" . | nindent 4 }}

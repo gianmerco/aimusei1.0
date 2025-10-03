@@ -5,8 +5,6 @@ metadata:
   labels:
     {{- include "mongodb-chart.labels" . | nindent 4 }}
 data:
-  # La chiave del data block è il nome del file preso da values.yaml.
-  # Il simbolo |- indica che il contenuto che segue è una stringa letterale multi-linea.
   {{ .Values.database.initDataFileName }}: |-
-{{- /* NON DEVE ESSERCI NULLA TRA "|-" E QUESTA RIGA DI TEMPLATE */ -}}
+
 {{ .Files.Get (printf "data/%s" .Values.database.initDataFileName) | nindent 4 }}

@@ -22,9 +22,7 @@ ingress:
   className: "nginx"
   host: "aimusei.local"
 
-  # Configurazione per il path del backend, che è gestito da questo Ingress
   backendPath:
     enabled: true
-    # Nome del servizio del backend a cui puntare
     serviceName: aimusei-be-service
     servicePort: 8090

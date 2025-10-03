@@ -5,7 +5,6 @@ kind: Ingress
 metadata:
   name: {{ .Values.nameBase }}-ingress
   labels:
-    # CORREZIONE 1: Parentesi graffe corrette
     app: {{ .Values.nameBase }}-frontend
 spec:
   ingressClassName: {{ .Values.ingress.className }}
@@ -29,7 +28,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                # CORREZIONE 2: Usa il nome fisso del nostro servizio frontend
                 name: {{ .Values.nameBase }}-fe-service
                 port:
                   number: {{ .Values.service.port }}
